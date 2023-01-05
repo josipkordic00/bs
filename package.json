@@ -1,1 +1,29 @@
-{}
+{
+  "name": "beautystudio",
+  "description": "��#\u0000 \u0000b\u0000e\u0000a\u0000u\u0000t\u0000y\u0000s\u0000a\u0000l\u0000o\u0000n\u0000\r\u0000 \u0000",
+  "version": "1.0.0",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/raspudic97/beautystudio.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/raspudic97/beautystudio/issues"
+  },
+  "homepage": "https://github.com/raspudic97/beautystudio#readme",
+  "dependencies": {
+    "bcrypt": "^5.1.0",
+    "body-parse": "^0.1.0",
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "mongoose": "^6.8.2",
+    "nodemon": "^2.0.20"
+  }
+}
