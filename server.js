@@ -1,8 +1,10 @@
 //mongodb+srv://BeautyStudio:1234@cluster0.sjk4cop.mongodb.net/test
 
 const express = require("express");
-const mongoose = require("mongoose");
+const MongoClient = require('mongodb').MongoClient;
 const bodyParser = require("body-parser");
+const session = require("express-session");
+const routes = require("./backend/routes/");
 
 
 const app = express();
@@ -15,25 +17,27 @@ app.use((req, res, next)=>{
 })
 
 
+/*const uri = "mongodb+srv://BeautyStudio:1234@cluster0.sjk4cop.mongodb.net/test?retryWrites=true&w=majority";
 
-const uri = "mongodb+srv://BeautyStudio:1234@cluster0.sjk4cop.mongodb.net/test";
-mongoose.connect(uri, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-})
-.then(()=>{
-    console.log("mongo db connected")
-})
-.catch(err => console.log(err))
+MongoClient.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true }, function(err, client) {
+   if(err) {
+        console.log('Error occurred while connecting to MongoDB Atlas...\n',err);
+   }
+   console.log('Connected...');
+   const collection = client.db("BeautyStudio").collection("users");
+   collection.find({}).toArray(function(err, documents) {
+      if (err) throw err;
+      console.log(documents);
+      client.close();
+   });
+});*/
+
+
 
 app.use(bodyParser.json())
 
-app.get('/', (req,res)=>{
-    res.send("hello")
-})
+app.use('/', routes)
 
-//const bsRoute = require('./routes/BeautyStudio');
-//app.use('/bs', bsRoute)
 
 app.listen(3000, ()=>{
     console.log("Listening to port 3000")
