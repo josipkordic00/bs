@@ -9,13 +9,24 @@ const mongodb = require('mongodb');
 
 router.get('/user', async (req, res)=>{
     const users = await loadUsersCollection();
-    res.send(await users.find({}).toArray())
+    let arr = await users.find({}).toArray();
+    res.send({"_id":arr[0]._id,
+            "first_name":arr[0].first_name,
+            "last_name":arr[0].last_name,
+            "email":arr[0].email,
+            "role":arr[0].role
+    })
 })
 //get one user
 router.get('/user/:id', async (req, res)=>{
     const users = await loadUsersCollection();
-    await users.find({_id: new mongodb.ObjectID(req.params.id)}).toArray();
-    res.status(200).send();
+    let arr = await users.find({_id: new mongodb.ObjectID(req.params.id)}).toArray();
+    
+    res.status(200).send({"_id":arr[0]._id,
+    "first_name":arr[0].first_name,
+    "last_name":arr[0].last_name,
+    "email":arr[0].email,
+    "role":arr[0].role});
 
 })
 
@@ -55,13 +66,13 @@ router.get('/appointment/:id', async (req, res)=>{
 })
 
 //add appointment
-router.post("/appointment/:id", async (req, res)=>{
+router.post("/appointment/", async (req, res)=>{
     let id = req.params.id;
     const appointments = await loadAppointmentsCollection();
     await appointments.insertOne({
-        user_id: id,
-        status: req.body.status,
         date: req.body.date,
+        status: req.body.status,
+        user_id: req.body.id,
         type: req.body.type,
     })
     res.status(201).send();
