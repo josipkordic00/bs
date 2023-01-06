@@ -1,6 +1,8 @@
 <template>
-  <NavBar />
-  <router-view />
+  <div class="overflow-x-hidden">
+    <NavBar />
+    <router-view />
+  </div>
 </template>
 
 <script>

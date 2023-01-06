@@ -15,9 +15,17 @@ import {
   faHouse,
   faCalendarCheck,
   faUser,
+  faRightToBracket,
+  faRightFromBracket,
 } from "@fortawesome/free-solid-svg-icons";
 
-library.add(faHouse, faCalendarCheck, faUser);
+library.add(
+  faHouse,
+  faCalendarCheck,
+  faUser,
+  faRightToBracket,
+  faRightFromBracket
+);
 
 // Mounts Vue App
 const app = createApp(App);
