@@ -132,7 +132,7 @@ export default {
             }
         },
         async addAppointment() {
-            const response = await fetch('http://localhost:3000/appointment', {
+            await fetch('http://localhost:3000/appointment', {
                 method: 'POST',
                 headers: {
                     'Content-type': 'application/json'
@@ -144,8 +144,10 @@ export default {
                     type: this.type
                 })
             });
-            const data = await response.json();
-            console.log(data);
+
+            this.date = this.resetDate();
+            this.type = "";
+            alert("Vaš termin je uspješno rezerviran. Molimo vas da dođete na vrijeme. Hvala!")
         },
         resetDate() {
             var currentDate = new Date();
