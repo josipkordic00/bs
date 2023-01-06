@@ -54,6 +54,15 @@
                 <p>Termin koji ste odabrali nije dostupan</p>
             </div>
 
+            <!-- Error message  -->
+            <div v-if="type === ''" class=" flex items-center bg-red-500 text-white text-sm font-bold px-4 py-3"
+                role="alert">
+                <svg class="fill-current w-4 h-4 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                    <path d="M11 0h3L9 20H6l5-20zm1 11V9h2v2h-2zm0 4V13h2v2h-2z" />
+                </svg>
+                <p>Molimo odaberite vrstu termina</p>
+            </div>
+
             <!-- Button error message -->
             <div v-if="user === false" class="flex items-center bg-red-500 text-white text-sm font-bold px-4 py-3"
                 role="alert">
