@@ -10,7 +10,7 @@
 
             <RouterLink to="/">Homepage</RouterLink>
 
-            <RouterLink to="/">My Appointments</RouterLink>
+            <RouterLink to="/appointments">My Appointments</RouterLink>
 
             <RouterLink to="/">My profile</RouterLink>
 
@@ -27,7 +27,7 @@
 
             <RouterLink to="/"><font-awesome-icon icon="fa-solid fa-house" /></RouterLink>
 
-            <RouterLink to="/"><font-awesome-icon icon="fa-solid fa-calendar-check" /></RouterLink>
+            <RouterLink to="/appointments"><font-awesome-icon icon="fa-solid fa-calendar-check" /></RouterLink>
 
             <RouterLink to="/"><font-awesome-icon icon="fa-solid fa-user" /></RouterLink>
 

@@ -26,9 +26,9 @@
                 <select v-model="type" id="countries"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                     <option selected value="">Odabir vrste termina</option>
-                    <option value="nokti">Nokti</option>
-                    <option value="obrve">Obrve</option>
-                    <option value="sminka">Šminkanje</option>
+                    <option value="Nokti">Nokti</option>
+                    <option value="Obrve">Obrve</option>
+                    <option value="Šminkanje">Šminkanje</option>
                 </select>
             </div>
 
@@ -116,7 +116,6 @@ export default {
                 this.error = false;
                 this.success = true;
             }
-            console.log(this.resetDate().getTime() > val.getTime())
         }
     },
     methods: {
