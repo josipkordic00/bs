@@ -1,23 +1,34 @@
 const bcrypt = require("bcrypt");
-const MongoClient = require('mongodb').MongoClient;
-const uri = "mongodb+srv://BeautyStudio:1234@cluster0.sjk4cop.mongodb.net/test?retryWrites=true&w=majority";
+const express = require('express');
+const router = express.Router();
+const bodyParser = require('body-parser');
+const cors = require('cors');
+const mongodb = require('mongodb');
+
+
 
 const registerController = (req,res) => {
-    let first_name = req.body.first_name;
-    let last_name = req.body.last_name;
-    let email = req.body.email;
-    let password = req.body.password;
-MongoClient.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true }, function(err, client) {
-   if(err) {
-        console.log('Error occurred while connecting to MongoDB Atlas...\n',err);
+   let email = req.body.email;
+   
+
+   const users = loadUsersCollection();
+   let arr = users.find({}).toArray();
+
+   if(email === arr[0].email){
+      alert('ta e-mail adresa postoji')
+      res.redirect("/register")
+   }else{
+      res.redirect("/login")
    }
-   console.log('Connected...');
-    
-   const collection = client.db("BeautyStudio").collection("users");
-   collection.insert({first_name:first_name,last_name:last_name,email:email,password:password},function(err, documents) {
-      if (err) throw err;
-      client.close();
-   });
-});
+
+
+
+   async function loadUsersCollection(){
+      const client = await mongodb.MongoClient.connect("mongodb+srv://BeautyStudio:1234@cluster0.sjk4cop.mongodb.net/test?retryWrites=true&w=majority", {
+          useNewUrlParser: true,
+          useUnifiedTopology: true
+      })
+      return client.db('BeautyStudio').collection('users')
+  }
 }
 module.exports = registerController;

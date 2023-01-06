@@ -3,6 +3,7 @@ const router = express.Router();
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const mongodb = require('mongodb');
+const bcrypt = require('bcrypt');
 
 
 //get all users
@@ -57,6 +58,14 @@ router.get('/appointment', async (req, res)=>{
     const appointments = await loadAppointmentsCollection();
     res.send(await appointments.find({}).toArray())
 })
+
+//get all appointments from one user
+
+router.get('/appointment/:id', async (req, res)=>{
+    const appointments = await loadAppointmentsCollection();
+    res.send(await appointments.find({user_id : req.params.id}).toArray())
+})
+
 //get one appointment
 router.get('/appointment/:id', async (req, res)=>{
     const appointments = await loadAppointmentsCollection();
@@ -67,7 +76,6 @@ router.get('/appointment/:id', async (req, res)=>{
 
 //add appointment
 router.post("/appointment/", async (req, res)=>{
-    let id = req.params.id;
     const appointments = await loadAppointmentsCollection();
     await appointments.insertOne({
         date: req.body.date,
