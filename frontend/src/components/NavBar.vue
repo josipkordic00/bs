@@ -5,49 +5,39 @@
         </div>
 
         <!-- Links on large & medium screens -->
-        <ul v-if="user" class="hidden md:flex items-center gap-4 cursor-pointer text-dark font-semibold">
-            <li>
-                <RouterLink to="/">Homepage</RouterLink>
-            </li>
-            <li>
-                <RouterLink to="/">My Appointments</RouterLink>
-            </li>
-            <li>
-                <RouterLink to="/">My profile</RouterLink>
-            </li>
-            <li>
-                <RouterLink to="/">Logout</RouterLink>
-            </li>
-        </ul>
+        <div v-if="user" class="hidden md:flex items-center gap-4 cursor-pointer text-dark font-semibold">
 
-        <ul v-else class="hidden md:flex items-center gap-4 cursor-pointer text-dark font-semibold">
-            <li>
-                <RouterLink to="/auth">Login / Register</RouterLink>
-            </li>
-        </ul>
+            <RouterLink to="/">Homepage</RouterLink>
+
+            <RouterLink to="/">My Appointments</RouterLink>
+
+            <RouterLink to="/">My profile</RouterLink>
+
+            <RouterLink @click="logout" to="/">Logout</RouterLink>
+
+        </div>
+
+        <div v-else class="hidden md:flex items-center gap-4 cursor-pointer text-dark font-semibold">
+            <RouterLink to="/auth">Login / Register</RouterLink>
+        </div>
 
         <!-- Links on mobile devices -->
-        <ul v-if="user" class="flex md:hidden font-bold items-center gap-6 cursor-pointer text-dark text-lg">
-            <li>
-                <RouterLink to="/"><font-awesome-icon icon="fa-solid fa-house" /></RouterLink>
-            </li>
-            <li>
-                <RouterLink to="/"><font-awesome-icon icon="fa-solid fa-calendar-check" /></RouterLink>
-            </li>
-            <li>
-                <RouterLink to="/"><font-awesome-icon icon="fa-solid fa-user" /></RouterLink>
-            </li>
-            <li>
-                <RouterLink to="/"><font-awesome-icon icon="fa-solid fa-right-from-bracket" /></RouterLink>
-            </li>
-        </ul>
+        <div v-if="user" class="flex md:hidden font-bold items-center gap-4 cursor-pointer text-dark text-lg pr-5">
 
-        <ul v-else class="flex md:hidden font-bold items-center text-dark text-lg pr-5">
-            <li>
-                <RouterLink @click="logout" to="/auth"><font-awesome-icon icon="fa-solid fa-right-to-bracket" />
-                </RouterLink>
-            </li>
-        </ul>
+            <RouterLink to="/"><font-awesome-icon icon="fa-solid fa-house" /></RouterLink>
+
+            <RouterLink to="/"><font-awesome-icon icon="fa-solid fa-calendar-check" /></RouterLink>
+
+            <RouterLink to="/"><font-awesome-icon icon="fa-solid fa-user" /></RouterLink>
+
+            <RouterLink @click="logout" to="/"><font-awesome-icon icon="fa-solid fa-right-from-bracket" />
+            </RouterLink>
+
+        </div>
+
+        <div v-else class="flex md:hidden font-bold items-center text-dark text-lg pr-5">
+            <RouterLink to="/auth"><font-awesome-icon icon="fa-solid fa-right-to-bracket" /></RouterLink>
+        </div>
     </nav>
 </template>
 
@@ -64,6 +54,7 @@ export default {
     },
     methods: {
         logout() {
+            this.user = false;
             this.$store.user = false;
         },
     },

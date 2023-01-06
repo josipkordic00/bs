@@ -1,5 +1,5 @@
 <template>
-  <div class="overflow-x-hidden">
+  <div class="overflow-x-hidden min-h-screen">
     <NavBar />
     <router-view />
   </div>
