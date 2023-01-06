@@ -2,7 +2,7 @@ import { createStore } from "vuex";
 
 const store = createStore({
   state: {
-    user: false,
+    user: true,
   },
   mutations: {
     toggleUser(state) {

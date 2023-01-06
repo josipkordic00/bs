@@ -1,5 +1,6 @@
 <template>
-    <nav class="flex items-center justify-between py-5 pl-4 md:p-5 border-b-black border-b bg-white">
+    <nav
+        class="fixed top-0 z-20 w-screen flex items-center justify-between py-5 pl-4 md:p-5 border-b-black border-b bg-white">
         <div class="uppercase tracking-wide text-xl font-bold text-dark">
             <RouterLink to="/">BeautyStudio</RouterLink>
         </div>

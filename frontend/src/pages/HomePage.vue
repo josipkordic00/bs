@@ -1,5 +1,5 @@
 <template>
-    <div class="min-h-screen w-screen">
+    <div class="min-h-screen w-screen my-14">
         <div
             class="relative w-screen h-[42vh] md:h-[50vh] flex items-center justify-center md:justify-start bg-hero-pattern-mobile md:bg-hero-pattern bg-cover bg-right bg-no-repeat">
 
@@ -18,7 +18,7 @@
             </h1>
         </div>
 
-        <div class="min-h-[50vh] w-2/3 flex-col mx-auto items-center justify-center space-y-8 pt-10">
+        <div class="min-h-[50vh] w-[90%] md:w-2/3 flex-col mx-auto items-center justify-center space-y-8 pt-10">
             <!-- Odabir vrste termina -->
             <div>
                 <label for="countries" class="block mb-2 text-sm font-medium text-dark">Odaberite
@@ -35,10 +35,11 @@
             <!-- Datum i vrijeme termina -->
             <Datepicker v-model="date" :min-time="{ hours: 8, minutes: 0 }" :max-time="{ hours: 18, minutes: 0 }"
                 minutes-increment="30" @input="ispisi" hide-offset-dates :is-24="true" :disabled-week-days="[0]"
-                :highlight="highlightedDates" />
+                :highlight="highlightedDates" :clearable="false">
+            </Datepicker>
 
             <!-- Success message  -->
-            <div v-if="false" class="flex items-center bg-green-500 text-white text-sm font-bold px-4 py-3"
+            <div v-if="success" class="flex items-center bg-green-500 text-white text-sm font-bold px-4 py-3"
                 role="alert">
                 <svg class="fill-current w-4 h-4 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
                     <path d="M0 11l2-2 5 5L18 3l2 2L7 18z" />
@@ -47,16 +48,24 @@
             </div>
 
             <!-- Error message  -->
-            <div v-if="false" class="flex items-center bg-red-500 text-white text-sm font-bold px-4 py-3" role="alert">
+            <div v-if="error" class="flex items-center bg-red-500 text-white text-sm font-bold px-4 py-3" role="alert">
                 <svg class="fill-current w-4 h-4 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
                     <path d="M11 0h3L9 20H6l5-20zm1 11V9h2v2h-2zm0 4V13h2v2h-2z" />
                 </svg>
                 <p>Termin koji ste odabrali nije dostupan</p>
             </div>
 
+            <!-- Button error message -->
+            <div v-if="!user" class="flex items-center bg-red-500 text-white text-sm font-bold px-4 py-3" role="alert">
+                <svg class="fill-current w-4 h-4 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                    <path d="M11 0h3L9 20H6l5-20zm1 11V9h2v2h-2zm0 4V13h2v2h-2z" />
+                </svg>
+                <p>Morate biti prijavljeni kako biste rezervirali termin</p>
+            </div>
+
             <!-- Button -->
-            <button
-                class="bg-blue-500 hover:bg-blue-700 float-right text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+            <button :disabled="user === false && error === true"
+                class="bg-blue-500 hover:bg-blue-700 disabled:bg-dark disabled:text-light float-right text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
                 Rezerviraj termin
             </button>
         </div>
@@ -70,7 +79,8 @@ export default {
     data() {
         return {
             date: ref(new Date()),
-            state: false,
+            error: false,
+            success: true,
         }
     },
     mounted() {
@@ -78,6 +88,11 @@ export default {
         currentDate.setDate(currentDate.getDate() + 1);
         currentDate.setHours(8, 0, 0, 0);
         this.date = currentDate;
+    },
+    watch: {
+        date: function (val) {
+            console.log(val);
+        }
     },
     methods: {
         ispisi() {
