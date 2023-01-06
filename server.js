@@ -4,7 +4,7 @@ const express = require("express");
 const MongoClient = require('mongodb').MongoClient;
 const bodyParser = require("body-parser");
 const session = require("express-session");
-const routes = require("./backend/routes/");
+const routes = require("./backend/routes/api/index");
 
 
 const app = express();
