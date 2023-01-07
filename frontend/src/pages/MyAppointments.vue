@@ -53,6 +53,8 @@ export default {
             const response = await fetch('http://localhost:3000/appointment');
             const data = await response.json();
             this.appointments = data;
+            //Sort appointments by date
+            this.appointments.sort((a, b) => new Date(a.date) - new Date(b.date));
             //Convert date to readable format
             this.appointments.forEach(app => {
                 app.date = new Date(app.date).toLocaleString();
