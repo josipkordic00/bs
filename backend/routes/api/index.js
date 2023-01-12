@@ -10,16 +10,17 @@ const mongodb = require('mongodb');
 router.get('/user', async (req, res)=>{
     const users = await loadUsersCollection();
     let arr = await users.find({}).toArray();
-    for (let i = 0; i <arr.length;i++){
-        res.send({"_id":arr[i]._id,
+    //for (let i = 0; i <arr.length;i++){
+        res.send({arr
+            /*"_id":arr[i]._id,
             "first_name":arr[i].first_name,
             "last_name":arr[i].last_name,
             "email":arr[i].email,
-            "role":arr[i].role
-    })
+            "role":arr[i].role*/
+        })
 
-    }
-    
+    //}
+
 })
 //get one user
 //-II- ali samo jednog korisnika
