@@ -1,15 +1,16 @@
-//mongodb+srv://BeautyStudio:1234@cluster0.sjk4cop.mongodb.net/test
-
+//importanje plugina
 const express = require("express");
 const MongoClient = require("mongodb").MongoClient;
 const bodyParser = require("body-parser");
 const session = require("express-session");
 const routes = require("./backend/routes/api/index");
 
+//spremanje expressa u varijablu 
 const app = express();
 
+//postavljanje detalja o responseu
 app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Accsess-Control-Allow-Origin", "*");
   res.header(
     "Access-Control-Allow-Methods",
     "GET,HEAD,OPTIONS,POST,PUT,DELETE"
@@ -21,25 +22,14 @@ app.use((req, res, next) => {
   next();
 });
 
-/*const uri = "mongodb+srv://BeautyStudio:1234@cluster0.sjk4cop.mongodb.net/test?retryWrites=true&w=majority";
 
-MongoClient.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true }, function(err, client) {
-   if(err) {
-        console.log('Error occurred while connecting to MongoDB Atlas...\n',err);
-   }
-   console.log('Connected...');
-   const collection = client.db("BeautyStudio").collection("users");
-   collection.find({}).toArray(function(err, documents) {
-      if (err) throw err;
-      console.log(documents);
-      client.close();
-   });
-});*/
 
 app.use(bodyParser.json());
 
+//pocetna ruta
 app.use("/", routes);
 
+//slusanje servera na portu 3000
 app.listen(3000, () => {
   console.log("Listening to port 3000");
 });

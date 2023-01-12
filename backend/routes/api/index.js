@@ -3,22 +3,26 @@ const router = express.Router();
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const mongodb = require('mongodb');
-const bcrypt = require('bcrypt');
 
 
 //get all users
-
+// endpoint koji kad se pozove dobavi iz baze sve korisnike
 router.get('/user', async (req, res)=>{
     const users = await loadUsersCollection();
     let arr = await users.find({}).toArray();
-    res.send({"_id":arr[0]._id,
-            "first_name":arr[0].first_name,
-            "last_name":arr[0].last_name,
-            "email":arr[0].email,
-            "role":arr[0].role
+    for (let i = 0; i <arr.length;i++){
+        res.send({"_id":arr[i]._id,
+            "first_name":arr[i].first_name,
+            "last_name":arr[i].last_name,
+            "email":arr[i].email,
+            "role":arr[i].role
     })
+
+    }
+    
 })
 //get one user
+//-II- ali samo jednog korisnika
 router.get('/user/:id', async (req, res)=>{
     const users = await loadUsersCollection();
     let arr = await users.find({_id: new mongodb.ObjectID(req.params.id)}).toArray();
@@ -34,6 +38,16 @@ router.get('/user/:id', async (req, res)=>{
 //add user
 router.post("/user", async (req, res)=>{
     const users = await loadUsersCollection();
+
+    let email = req.body.email;
+   let arr = users.find({email:email}).toArray();
+
+   if(arr){
+      alert('ta e-mail adresa postoji')
+      res.redirect("/register")
+   }else{
+      res.redirect("/login")
+   }
     await users.insertOne({
         first_name: req.body.first_name,
         last_name: req.body.last_name,
@@ -118,8 +132,20 @@ async function loadUsersCollection(){
 
 //setting routes
 
-router.use("/login", require("../../controllers/loginController"))
-router.use("/register", require("../../controllers/registerController"))
+router.get("/login", async (req, res)=>{
+    const users = await loadUsersCollection();
+    let email = req.body.email;
+   let password = req.body.password;
+
+   const usersCollection = await loadUsersCollection();
+   const docs = await usersCollection.find({email:email, password:password}).toArray();
+   if (docs.length === 0) {
+      // No matching documents were found
+      res.redirect("/");
+   } else {
+      res.send(docs[0]);
+   }
+})
 
 
 module.exports = router;
