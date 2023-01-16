@@ -37,14 +37,14 @@ router.get('/user/:id', async (req, res)=>{
 })
 
 //add user
-router.post("/user", async (req, res)=>{
+router.post("/register", async (req, res)=>{
     const users = await loadUsersCollection();
 
     let email = req.body.email;
    let arr = users.find({email:email}).toArray();
 
    if(arr){
-      throw new Error("email vec postoji")
+      res.send("Email vec postoji")
    }
     await users.insertOne({
         first_name: req.body.first_name,
@@ -139,7 +139,7 @@ router.get("/login", async (req, res)=>{
    const docs = await usersCollection.find({email:email, password:password}).toArray();
    if (docs.length === 0) {
       // No matching documents were found
-      res.redirect("/");
+      res.send("Ne postoji korisnik")
    } else {
       res.send(docs[0]);
    }
