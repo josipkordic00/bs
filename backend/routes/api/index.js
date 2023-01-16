@@ -43,7 +43,7 @@ router.post("/register", async (req, res)=>{
     let email = req.body.email;
    let arr = users.find({email:email}).toArray();
 
-   if(arr){
+   if(arr.length === 1){
       res.send("Email vec postoji")
    }
     await users.insertOne({

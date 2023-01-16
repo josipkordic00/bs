@@ -9,18 +9,7 @@ const routes = require("./backend/routes/api/index");
 const app = express();
 
 //postavljanje detalja o responseu
-app.use((req, res, next) => {
-  res.header("Accsess-Control-Allow-Origin", "*");
-  res.header(
-    "Access-Control-Allow-Methods",
-    "GET,HEAD,OPTIONS,POST,PUT,DELETE"
-  );
-  res.header(
-    "Access-Control-Allow-Headers",
-    "auth-token, Origin, X-Requested-With, Content-Type, Accept"
-  );
-  next();
-});
+
 
 
 
